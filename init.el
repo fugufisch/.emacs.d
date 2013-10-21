@@ -18,8 +18,6 @@
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)
 
-;; Set up appearance early
-(require 'appearance)
 
 ;; Settings for currently logged in user
 (setq user-settings-dir
@@ -79,7 +77,11 @@
      gitconfig-mode
      gitignore-mode
      clojure-mode
-     nrepl)))
+     smex
+     color-theme)))
+
+;; Set up appearance after zenburn is there
+(require 'appearance)
 
 (condition-case nil
     (init--install-packages)
@@ -211,3 +213,7 @@
 ;; Conclude init by setting up specifics for the current user
 (when (file-exists-p user-settings-dir)
   (mapc 'load (directory-files user-settings-dir nil "^[^#].*el$")))
+
+
+;;better defaults
+(require 'better-defaults)
