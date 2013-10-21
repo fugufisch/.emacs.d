@@ -52,7 +52,6 @@
         ("IMPEDED" . (:foreground "red" :weight bold))
         ))
 
-
 ;; Highlight matching parentheses when the point is on them.
 (show-paren-mode 1)
 
