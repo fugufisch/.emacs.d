@@ -20,7 +20,7 @@
 (global-set-key (kbd "C-x C-m") 'smex)
 
 ;; Expand region (increases selected region by semantic units)
-(global-set-key (if is-mac (kbd "C-@") (kbd "C-'")) 'er/expand-region)
+(global-set-key (kbd "C-'") 'er/expand-region)
 
 ;; Experimental multiple-cursors
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
