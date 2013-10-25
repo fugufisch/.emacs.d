@@ -59,6 +59,7 @@
      gist
      htmlize
      visual-regexp
+     elpy
      flycheck
      flx
      flx-ido
