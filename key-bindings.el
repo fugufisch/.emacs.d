@@ -270,7 +270,7 @@
 (eval-after-load 'undo-tree '(define-key undo-tree-map (kbd "C-?") nil))
 
 ;; Browse the kill ring
-(global-set-key (kbd "C-x C-y") 'browse-kill-ring)
+;;(global-set-key (kbd "C-x C-y") 'browse-kill-ring)
 
 ;; Buffer file functions
 (global-set-key (kbd "C-x t") 'touch-buffer-file)

@@ -54,6 +54,7 @@
    '(magit
      paredit
      move-text
+     dash
      god-mode
      gist
      htmlize
@@ -103,10 +104,6 @@
 (guide-key-mode 1)
 (setq guide-key/recursive-key-sequence-flag t)
 (setq guide-key/popup-window-position 'bottom)
-
-;; god-mode
-(require 'god-mode)
-(global-set-key (kbd "<escape>") 'god-local-mode)
 
 ;; Setup extensions
 (eval-after-load 'ido '(require 'setup-ido))
@@ -178,8 +175,8 @@
 (setq fci-rule-color "#111122")
 
 ;; Browse kill ring
-(require 'browse-kill-ring)
-(setq browse-kill-ring-quit-action 'save-and-restore)
+;; (require 'browse-kill-ring)
+;; (setq browse-kill-ring-quit-action 'save-and-restore)
 
 ;; Smart M-x is smart
 (require 'smex)
@@ -198,7 +195,7 @@
 (add-hook 'emacs-lisp-mode-hook (lambda () (elisp-slime-nav-mode t) (eldoc-mode 1)))
 
 ;; Email, baby
-(require 'setup-mu4e)
+;;(require 'setup-mu4e)
 
 ;; Emacs server
 (require 'server)

@@ -38,6 +38,11 @@
 (add-to-list 'auto-mode-alist '("\\.jsp$" . crappy-jsp-mode))
 (add-to-list 'auto-mode-alist '("\\.jspf$" . crappy-jsp-mode))
 
+;;Latex
+(add-to-list 'auto-mode-alist '("\\.tex$" . LaTeX-mode))
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+(add-hook 'LaTeX-mode-hook 'auto-fill-mode)
+
 ;; Ruby
 (autoload 'rhtml-mode "rhtml-mode")
 (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
@@ -52,6 +57,10 @@
 ;; Puppet
 (autoload 'puppet-mode "puppet-mode")
 (add-to-list 'auto-mode-alist '("\\.pp$" . puppet-mode))
+
+;;Python
+(add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
+(add-hook 'python-mode-hook 'elpy-mode)
 
 ;; Groovy
 (autoload 'groovy-mode "groovy-mode")
