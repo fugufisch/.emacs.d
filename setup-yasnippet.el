@@ -2,12 +2,14 @@
 
 ;; Use only own snippets, do not use bundled ones
 (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
+;;(setq yas-snippet-dirs '("~/.emacs.d/elpa/yasnippet-20131014.928/snippets"))
+
 (yas-global-mode 1)
 
 ;; Include snippets for stuff
-(require 'buster-snippets)
-(require 'angular-snippets)
-(require 'datomic-snippets)
+;;(require 'buster-snippets)
+;;(require 'angular-snippets)
+;;(require 'datomic-snippets)
 
 ;; Jump to end of snippet definition
 (define-key yas-keymap (kbd "<return>") 'yas/exit-all-snippets)
