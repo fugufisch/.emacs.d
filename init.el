@@ -210,3 +210,143 @@
 ;; Conclude init by setting up specifics for the current user
 (when (file-exists-p user-settings-dir)
   (mapc 'load (directory-files user-settings-dir nil "^[^#].*el$")))
+
+
+;;publishing parameters for different projects in orgmode
+(require 'org-publish)
+;(load "org-exp-bibtex")
+(setq org-publish-project-alist
+      '(
+        ("org-notes"
+         :base-directory "~/Dropbox/org/"
+         :base-extension "org"
+         :publishing-directory "~/public_html/"
+         :recursive t
+         :publishing-function org-publish-org-to-html
+         :headline-levels 4             ; Just the default
+         :auto-preamble t)
+        ("org-notes"
+         :base-directory "~/Dropbox/org/"
+         :base-extension "org"
+         :publishing-directory "~/public_html/"
+         :recursive t
+         :publishing-function org-publish-org-to-html
+         :headline-levels 4             ; Just the default
+         :auto-preamble t)
+        ("org-static"
+         :base-directory "~/Dropbox/org/"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+         :publishing-directory "~/public_html/"
+         :recursive t
+         :publishing-function org-publish-attachment)
+        ("org" :components ("org-notes" "org-static"))
+
+        ("luciferase-inherit"
+         :base-directory "~/Dropbox/org/"
+         :base-extension "css\\|js"
+         :publishing-directory "~/public_html/luciferase/"
+         :publishing-function org-publish-attachment
+         :recursive t)
+
+        ("luciferase-org"
+         :base-directory "~/luciferase/"
+         :auto-index t
+         :index-filename "sitemap.org"
+         :index-title "Sitemap"
+         :recursive t
+         :base-extension "org"
+         :publishing-directory "~/public_html/luciferase/"
+         :publishing-function org-publish-org-to-html
+         :headline-levels 3
+         :auto-preamble t)
+        ("luciferase-static"
+         :base-directory "~/luciferase/"
+         :recursive t
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|svg"
+         :publishing-directory "~/public_html/luciferase/"
+         :publishing-function org-publish-attachment)
+
+        ("luciferase" :components ("luciferase-inherit" "luciferase-notes" "luciferase-static"))
+
+        ("influenza-inherit"
+         :base-directory "~/Dropbox/org/"
+         :base-extension "css\\|js"
+         :publishing-directory "~/public_html/influenza/"
+         :publishing-function org-publish-attachment
+         :recursive t)
+
+        ("influenza-org"
+         :base-directory "~/influenza/src"
+         :auto-index t
+         :index-filename "sitemap.org"
+         :index-title "Sitemap"
+         :recursive t
+         :base-extension "org"
+         :publishing-directory "~/public_html/influenza/"
+         :publishing-function org-publish-org-to-html
+         :headline-levels 3
+         :auto-preamble t)
+
+        ("influenza-static"
+         :base-directory "~/influenza/src/figures"
+         :recursive t
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|svg"
+         :publishing-directory "~/public_html/influenza/figures"
+         :publishing-function org-publish-attachment)
+
+        ("influenza" :components ("influenza-static" "influenza-inherit" "influenza-notes"))
+
+        ("python_course-inherit"
+         :base-directory "~/Dropbox/org/"
+         :base-extension "css\\|js"
+         :publishing-directory "~/public_html/python_course/"
+         :publishing-function org-publish-attachment
+         :recursive t)
+
+        ("python_course-org"
+         :base-directory "~/Documents/Presentations/python_course/"
+         :auto-index t
+         :index-filename "sitemap.org"
+         :index-title "Sitemap"
+         :recursive t
+         :base-extension "org"
+         :publishing-directory "~/public_html/python_course/"
+         :publishing-function org-publish-org-to-html
+         :headline-levels 3
+         :auto-preamble t)
+        ("python_course-static"
+         :base-directory "~/Documents/Presentations/python_course/"
+         :recursive t
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|svg"
+         :publishing-directory "~/public_html/python_course/"
+         :publishing-function org-publish-attachment)
+
+        ("python_course" :components ("python_course-inherit" "python_course-notes" "python_course-static"))
+
+        ("frontiers-inherit"
+         :base-directory "~/Dropbox/org/"
+         :base-extension "css\\|js"
+         :publishing-directory "~/public_html/frontiers/"
+         :publishing-function org-publish-attachment
+         :recursive t)
+
+        ("frontiers-org"
+         :base-directory "~/Dropbox/frontiers_paper/"
+         :auto-index t
+         :index-filename "sitemap.org"
+         :index-title "Sitemap"
+         :recursive t
+         :base-extension "org"
+         :publishing-directory "~/public_html/frontiers/"
+         :publishing-function org-publish-org-to-html
+         :headline-levels 3
+         :auto-preamble t)
+
+        ("frontiers-static"
+         :base-directory "~/Dropbox/frontiers_paper/"
+         :recursive t
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|svg"
+         :publishing-directory "~/public_html/frontiers/"
+         :publishing-function org-publish-attachment)
+
+        ("frontiers" :components ("frontiers-inherit" "frontiers-notes" "frontiers-static"))))
