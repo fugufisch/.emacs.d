@@ -103,6 +103,7 @@
         sgml-slash
         skeleton-pair-insert-maybe
         slime-space
+        snakeify-current-word
         sp--self-insert-command
         sp-remove-active-pair-overlay
         sp-self-insert-command
@@ -140,9 +141,11 @@
         dired-toggle-read-only
         edebug-next-mode
         eval-expression
+        god-local-mode
         goto-line-with-feedback
         handle-switch-frame
         ido-switch-buffer
+        js2-mode-show-node
         js2r-extract-var
         js2r-rename-var
         jump-between-source-and-test-files
@@ -150,10 +153,11 @@
         mc/add-cursor-on-click
         mc/add-cursors-to-all-matches
         multiple-cursors-mode
-        god-local-mode
         persp-switch
+        python-indent-dedent-line-backspace
         shell
         smex
+        undefined
         wgrep-change-to-wgrep-mode
         wgrep-finish-edit
         wgrep-save-all-buffers
