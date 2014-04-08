@@ -2,7 +2,7 @@
 
 ;; Use only own snippets, do not use bundled ones
 (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
-;;(setq yas-snippet-dirs '("~/.emacs.d/elpa/yasnippet-20131014.928/snippets"))
+(add-to-list '("~/.emacs.d/elpa/yasnippet-20140314.255/snippets"))
 
 (yas-global-mode 1)
 
