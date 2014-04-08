@@ -72,22 +72,142 @@
 (project-specifics "projects/oiiku"
   (set (make-local-variable 'sgml-basic-offset) 2))
 
-;; FINN Oppdrag
+(project-specifics "projects/oiiku"
+  (ffip-local-patterns "*.clj" "*.js" "*.css" "*.edn" "*.html")
+  (ffip-local-excludes "target"))
 
-(defun custom-persp/oppdrag ()
-  (interactive)
-  (custom-persp "oppdrag"
-                (find-file "~/Dropbox/projects/finn-oppdrag/todo.org")))
+(defmacro comment (&rest ignore))
 
-;;(define-key persp-mode-map (kbd "C-x p o") 'custom-persp/oppdrag)
+(defface prodigy-dull-face
+  '((((class color)) :foreground "#999999"))
+  "Gray color indicating waiting."
+  :group 'prodigy)
 
-(require 'oppdrag-mode)
+(prodigy-define-status :id 'running :face 'prodigy-dull-face)
+(prodigy-define-status :id 'exception :face 'prodigy-red-face)
 
-(project-specifics "oppdrag-services"
-  (make-local-variable 'grep-find-ignored-directories)
-  (add-to-list 'grep-find-ignored-directories "ckeditor")
-  (ffip-local-patterns "*.js" "*.tag" "*.jsp" "*.css" "*.org" "*.vm" "*jsTestDriver.conf" "*jawr.properties")
-  (oppdrag-mode))
+(prodigy-define-tag
+  :name 'ring
+  :on-output (lambda (service output)
+               (when (s-matches? "Started server on port" output)
+                 (prodigy-set-status service 'ready))
+               (when (s-matches? "Exception" output)
+                 (prodigy-set-status service 'exception))))
+
+(prodigy-define-service
+  :name "kodemaker.no"
+  :cwd "~/projects/kodemaker.no/"
+  :command "lein"
+  :args '("trampoline" "ring" "server-headless")
+  :port 3333
+  :tags '(ring))
+
+(comment
+ (prodigy-define-service
+   :name "datomic oiiku-central-api"
+   :cwd "~/data/datomic-free-0.8.4218"
+   :path '("~/data/datomic-free-0.8.4218/bin")
+   :command "transactor"
+   :args '("../../projects/oiiku/oiiku-central-api/oiiku-central-api-server/config/datomic-transactor-free.properties")
+   :tags '(oiiku datomic pillar))
+
+ (prodigy-define-service
+   :name "datomic oiiku-badges-app"
+   :cwd "~/data/datomic-free-0.8.4218"
+   :path '("~/data/datomic-free-0.8.4218/bin")
+   :command "transactor"
+   :args '("../../projects/oiiku/oiiku-badges-app/config/datomic-transactor-free.properties")
+   :tags '(oiiku datomic pillar))
+
+ (prodigy-define-service
+   :name "datomic oiiku-screen-admin"
+   :cwd "~/data/datomic-free-0.8.4218"
+   :path '("~/data/datomic-free-0.8.4218/bin")
+   :command "transactor"
+   :args '("../../projects/oiiku/oiiku-screen-admin-app/config/datomic-transactor-free.properties")
+   :tags '(oiiku datomic pillar))
+
+ (prodigy-define-service
+   :name "elasticsearch"
+   :cwd "~/data/elasticsearch-1.0.0.Beta1/"
+   :path '("~/data/elasticsearch-1.0.0.Beta1/bin/")
+   :command "elasticsearch"
+   :args '("-f")
+   :tags '(oiiku elasticsearch pillar)
+   :on-output (lambda (service output)
+                (when (s-matches? "] started" output)
+                  (prodigy-set-status service 'ready))))
+
+ (prodigy-define-service
+   :name "oiiku-central-api"
+   :cwd "~/projects/oiiku/oiiku-central-api/oiiku-central-api-server/"
+   :command "lein"
+   :args '("trampoline" "ring" "server-headless")
+   :tags '(oiiku pillar))
+
+ (prodigy-define-service
+   :name "oiiku-sso"
+   :cwd "~/projects/oiiku/oiiku-sso/"
+   :command "lein"
+   :args '("trampoline" "ring" "server-headless")
+   :tags '(oiiku pillar))
+
+ (prodigy-define-service
+   :name "oiiku-event-admin"
+   :cwd "~/projects/oiiku/oiiku-event-admin/"
+   :command "lein"
+   :args '("trampoline" "ring" "server-headless")
+   :tags '(oiiku pillar))
+
+ (prodigy-define-service
+   :name "oiiku-attendants-app"
+   :cwd "~/projects/oiiku/oiiku-attendants-app/"
+   :command "lein"
+   :args '("trampoline" "ring" "server-headless")
+   :tags '(oiiku pillar))
+
+ (prodigy-define-service
+   :name "oiiku-messages-app"
+   :cwd "~/projects/oiiku/oiiku-messages-app/"
+   :command "lein"
+   :args '("trampoline" "ring" "server-headless")
+   :tags '(oiiku messages))
+
+ (prodigy-define-service
+   :name "oiiku-messages-gateway"
+   :cwd "~/projects/oiiku/oiiku-messages-gateway/"
+   :command "lein"
+   :args '("trampoline" "ring" "server-headless")
+   :tags '(oiiku messages))
+
+ (prodigy-define-service
+   :name "oiiku-messages-dummy"
+   :cwd "~/projects/oiiku/oiiku-messages-dummy/"
+   :path '("~/projects/oiiku/oiiku-messages-dummy/")
+   :command "gradlew"
+   :args '("run")
+   :tags '(oiiku messages))
+
+ (prodigy-define-service
+   :name "oiiku-badges-app"
+   :cwd "~/projects/oiiku/oiiku-badges-app/"
+   :command "lein"
+   :args '("trampoline" "ring" "server-headless")
+   :tags '(oiiku))
+
+ (prodigy-define-service
+   :name "oiiku-invitations-app"
+   :cwd "~/projects/oiiku/oiiku-invitations-app/"
+   :command "lein"
+   :args '("trampoline" "ring" "server-headless")
+   :tags '(oiiku))
+
+ (prodigy-define-service
+   :name "oiiku-screen-admin-app"
+   :cwd "~/projects/oiiku/oiiku-screen-admin-app/"
+   :command "lein"
+   :args '("trampoline" "ring" "server-headless")
+   :tags '(oiiku)))
 
 ;; FINN Reise
 
@@ -119,6 +239,16 @@
   (ffip-local-patterns "*.js" "*.tag" "*.jsp" "*.css" "*.org" "*.vm" "*jawr.properties")
   (set (make-local-variable 'sgml-basic-offset) 2)
   (travel-mode))
+
+;; kodemaker.no
+
+(project-specifics "projects/kodemaker.no"
+  (ffip-local-patterns "*.js" "*.css" "*.edn" "*.adoc" "*.clj" "*.md"))
+
+;; Zombie CLJ
+
+(project-specifics "zombieclj"
+  (ffip-local-patterns "*.js" "*.css" "*.edn" "*.clj" "*.cljs" "*.md" "*.html"))
 
 ;; Zombie TDD
 
@@ -178,6 +308,16 @@
 
 (add-hook 'js2-mode-hook 'magnars/jztdd-setup)
 
+;; kodemake
+
+(defun magnars/kodemake-setup ()
+  (when (string-match-p "projects/kodemake" (buffer-file-name))
+    (setq js2r-path-to-sources "/source/javascripts/")
+    (set (make-local-variable 'buster-default-global) "MAKE")
+    (set (make-local-variable 'buster-test-prefix) "")))
+
+(add-hook 'js2-mode-hook 'magnars/kodemake-setup)
+
 ;; culljs
 
 (defun custom-persp/culljs ()
@@ -219,6 +359,19 @@
               (set (make-local-variable 'js2-basic-offset) 4)
               (set (make-local-variable 'js2r-use-strict) nil))))
 
+;; no-adventur
+
+(defun custom-persp/no-adventur ()
+  (interactive)
+  (custom-persp "no-adventur"
+                (find-file "~/projects/no-adventur/")))
+
+(define-key persp-mode-map (kbd "C-x p n") 'custom-persp/no-adventur)
+
+(project-specifics "no-adventur"
+  (ffip-local-patterns "*.clj" "*.js" "*.css" "*.edn")
+  (ffip-local-excludes "target"))
+
 ;; Adventur
 
 (defun custom-persp/adventur ()
@@ -228,7 +381,7 @@
 
 (define-key persp-mode-map (kbd "C-x p a") 'custom-persp/adventur)
 
-(project-specifics "adventur"
+(project-specifics "adventur/nettsidene/adventur_no/"
   (ffip-local-patterns "*.js" "*.php" "*.css")
   (ffip-local-excludes "compiled_pages" "compiler_test_files" "simpletest" "compressed"))
 

@@ -13,18 +13,26 @@
         back-to-indentation-or-beginning
         backward-sexp
         c-electric-backspace
+        c-electric-colon
         c-electric-delete-forward
         c-electric-paren
+        c-electric-pound
         c-electric-semi&comma
         c-electric-slash
         c-electric-star
         change-inner
         change-number-at-point
         change-outer
+        cider-eval-last-sexp
+        clj-hippie-expand-no-case-fold
+        cljr-cycle-coll
+        cljr-unwind
         cua-replace-region
         cua-set-mark
         delete-blank-lines
+        delete-indentation
         dired-back-to-start-of-files
+        down-list
         duplicate-current-line-or-region
         end-of-buffer
         eval-and-replace
@@ -35,7 +43,9 @@
         forward-sexp
         god-mode-repeat
         hippie-expand-no-case-fold
+        html-paragraph
         html-wrap-in-tag
+        insert-postfix-whitespace
         js2-beginning-of-line
         js2-end-of-line
         js2-insert-and-indent
@@ -46,6 +56,7 @@
         kill-and-retry-line
         kill-region-or-backward-word
         kill-sexp
+        live-cycle-clj-coll
         magit-stage-item
         markdown-enter-key
         move-line-down
@@ -55,6 +66,7 @@
         move-to-window-line-top-bottom
         new-line-above
         open-line-above
+        open-line-and-indent
         open-line-below
         org-beginning-of-line
         org-delete-backward-char
@@ -69,6 +81,9 @@
         orgtbl-self-insert-command
         paredit-backslash
         paredit-backward
+        paredit-backward-barf-sexp
+        paredit-backward-down
+        paredit-backward-slurp-sexp
         paredit-backward-up
         paredit-close-round
         paredit-close-square
@@ -103,7 +118,6 @@
         sgml-slash
         skeleton-pair-insert-maybe
         slime-space
-        snakeify-current-word
         sp--self-insert-command
         sp-remove-active-pair-overlay
         sp-self-insert-command
@@ -128,6 +142,8 @@
         transpose-params
         transpose-sexps
         wrap-region-trigger
+        yaml-electric-backspace
+        yaml-electric-dash-and-dot
         yank-indented
         yas-expand
         zap-up-to-char
@@ -136,28 +152,29 @@
 (setq mc/cmds-to-run-once
       '(
         adv-insert-new-number
+        beginning-of-buffer
         cleanup-buffer
         describe-key
         dired-toggle-read-only
         edebug-next-mode
         eval-expression
+        find-tag
         god-local-mode
         goto-line-with-feedback
         handle-switch-frame
         ido-switch-buffer
-        js2-mode-show-node
         js2r-extract-var
         js2r-rename-var
         jump-between-source-and-test-files
+        kmacro-end-or-call-macro
         magit-status
         mc/add-cursor-on-click
         mc/add-cursors-to-all-matches
         multiple-cursors-mode
+        ns-prev-frame
         persp-switch
-        python-indent-dedent-line-backspace
         shell
         smex
-        undefined
         wgrep-change-to-wgrep-mode
         wgrep-finish-edit
         wgrep-save-all-buffers

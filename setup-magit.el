@@ -5,6 +5,21 @@
 (set-face-foreground 'diff-added "#00cc33")
 (set-face-foreground 'diff-removed "#ff0000")
 
+(set-default 'magit-stage-all-confirm nil)
+(set-default 'magit-unstage-all-confirm nil)
+
+(eval-after-load 'ediff
+  '(progn
+     (set-face-foreground 'ediff-odd-diff-B "#ffffff")
+     (set-face-background 'ediff-odd-diff-B "#292521")
+     (set-face-foreground 'ediff-even-diff-B "#ffffff")
+     (set-face-background 'ediff-even-diff-B "#292527")
+
+     (set-face-foreground 'ediff-odd-diff-A "#ffffff")
+     (set-face-background 'ediff-odd-diff-A "#292521")
+     (set-face-foreground 'ediff-even-diff-A "#ffffff")
+     (set-face-background 'ediff-even-diff-A "#292527")))
+
 ;; todo:
 ;; diff-added-face      diff-changed-face
 ;; diff-context-face    diff-file-header-face
@@ -35,6 +50,17 @@
 
 (eval-after-load "git-commit-mode"
   '(define-key git-commit-mode-map (kbd "C-c C-k") 'magit-exit-commit-mode))
+
+;; C-c C-a to amend without any prompt
+
+(defun magit-just-amend ()
+  (interactive)
+  (save-window-excursion
+    (magit-with-refresh
+      (shell-command "git --no-pager commit --amend --reuse-message=HEAD"))))
+
+(eval-after-load "magit"
+  '(define-key magit-status-mode-map (kbd "C-c C-a") 'magit-just-amend))
 
 ;; C-x C-k to kill file on line
 
@@ -103,5 +129,10 @@
 
 (require-package 'git-messenger)
 (global-set-key (kbd "C-x v p") #'git-messenger:popup-message)
+
+;; Don't bother me with flyspell keybindings
+
+(eval-after-load "flyspell"
+  '(define-key flyspell-mode-map (kbd "C-.") nil))
 
 (provide 'setup-magit)

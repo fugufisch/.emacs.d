@@ -28,7 +28,7 @@
     (paredit-backward-kill-word)))
 
 (add-hook 'clojure-mode-hook (lambda () (paredit-mode 1)))
-(add-hook 'nrepl-mode-hook (lambda () (paredit-mode 1)))
+(add-hook 'cider-repl-mode-hook (lambda () (paredit-mode 1)))
 (add-hook 'emacs-lisp-mode-hook (lambda () (paredit-mode 1)))
 
 (define-key paredit-mode-map (kbd "M-(") 'paredit-wrap-round)
@@ -39,6 +39,7 @@
 (define-key paredit-mode-map (kbd "M-s-)") 'paredit-wrap-curly-from-behind)
 
 (define-key paredit-mode-map (kbd "C-w") 'paredit-kill-region-or-backward-word)
+(define-key paredit-mode-map (kbd "M-C-<backspace>") 'backward-kill-sexp)
 
 ;; Change nasty paredit keybindings
 (defvar my-nasty-paredit-keybindings-remappings

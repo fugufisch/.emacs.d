@@ -83,6 +83,13 @@
 (global-set-key (kbd "C-c C--") 'replace-next-underscore-with-camel)
 (global-set-key (kbd "M-s M--") 'snakeify-current-word)
 
+;; Change word separators
+(global-unset-key (kbd "C-x +")) ;; used to be balance-windows
+(global-set-key (kbd "C-x + -") (λ (replace-region-by 's-dashed-words)))
+(global-set-key (kbd "C-x + _") (λ (replace-region-by 's-snake-case)))
+(global-set-key (kbd "C-x + c") (λ (replace-region-by 's-lower-camel-case)))
+(global-set-key (kbd "C-x + C") (λ (replace-region-by 's-upper-camel-case)))
+
 ;; Killing text
 (global-set-key (kbd "C-S-k") 'kill-and-retry-line)
 (global-set-key (kbd "C-w") 'kill-region-or-backward-word)
@@ -90,7 +97,8 @@
 
 ;; Use M-w for copy-line if no active region
 (global-set-key (kbd "M-w") 'save-region-or-current-line)
-(global-set-key (kbd "M-W") '(λ (save-region-or-current-line 1)))
+(global-set-key (kbd "s-w") 'save-region-or-current-line)
+(global-set-key (kbd "M-W") (λ (save-region-or-current-line 1)))
 
 ;; Make shell more convenient, and suspend-frame less
 (global-set-key (kbd "C-z") 'shell)
@@ -134,6 +142,8 @@
 ;; toggle two most recent buffers
 (fset 'quick-switch-buffer [?\C-x ?b return])
 (global-set-key (kbd "s-b") 'quick-switch-buffer)
+
+(global-set-key (kbd "s-y") 'bury-buffer)
 
 ;; Revert without any fuss
 (global-set-key (kbd "M-<escape>") (λ (revert-buffer t t)))
@@ -305,8 +315,10 @@
 (global-set-key (kbd "C-x C-o ht") (ffip-create-pattern-file-finder "*.html"))
 (global-set-key (kbd "C-x C-o jp") (ffip-create-pattern-file-finder "*.jsp"))
 (global-set-key (kbd "C-x C-o cs") (ffip-create-pattern-file-finder "*.css"))
+(global-set-key (kbd "C-x C-o ft") (ffip-create-pattern-file-finder "*.feature"))
 (global-set-key (kbd "C-x C-o cl") (ffip-create-pattern-file-finder "*.clj"))
 (global-set-key (kbd "C-x C-o el") (ffip-create-pattern-file-finder "*.el"))
+(global-set-key (kbd "C-x C-o ed") (ffip-create-pattern-file-finder "*.edn"))
 (global-set-key (kbd "C-x C-o md") (ffip-create-pattern-file-finder "*.md"))
 (global-set-key (kbd "C-x C-o rb") (ffip-create-pattern-file-finder "*.rb"))
 (global-set-key (kbd "C-x C-o or") (ffip-create-pattern-file-finder "*.org"))
@@ -314,6 +326,7 @@
 (global-set-key (kbd "C-x C-o tx") (ffip-create-pattern-file-finder "*.txt"))
 (global-set-key (kbd "C-x C-o vm") (ffip-create-pattern-file-finder "*.vm"))
 (global-set-key (kbd "C-x C-o xm") (ffip-create-pattern-file-finder "*.xml"))
+(global-set-key (kbd "C-x C-o in") (ffip-create-pattern-file-finder "*.ini"))
 (global-set-key (kbd "C-x C-o pr") (ffip-create-pattern-file-finder "*.properties"))
 (global-set-key (kbd "C-x C-o in") (ffip-create-pattern-file-finder "*.ini"))
 (global-set-key (kbd "C-x C-o gr") (ffip-create-pattern-file-finder "*.groovy"))

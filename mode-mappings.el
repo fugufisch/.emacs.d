@@ -5,6 +5,7 @@
 
 ;; Emacs lisp
 (add-to-list 'auto-mode-alist '("Carton$" . emacs-lisp-mode))
+(add-to-list 'auto-mode-alist '("Cask$" . emacs-lisp-mode))
 
 ;; CSS
 (add-to-list 'auto-mode-alist '("\\.scss$" . css-mode))
@@ -29,7 +30,7 @@
 (add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
 
 ;; HTML
-(add-to-list 'auto-mode-alist '("\\.html\\'" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.html\\'" . crappy-jsp-mode))
 (add-to-list 'auto-mode-alist '("\\.tag$" . html-mode))
 (add-to-list 'auto-mode-alist '("\\.vm$" . html-mode))
 
@@ -65,10 +66,12 @@
 ;; Groovy
 (autoload 'groovy-mode "groovy-mode")
 (add-to-list 'auto-mode-alist '("\\.groovy$" . groovy-mode))
+(add-to-list 'auto-mode-alist '("\\.gradle$" . groovy-mode))
 
 ;; Clojure
 (autoload 'clojure-mode "clojure-mode")
 (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
+(add-to-list 'auto-mode-alist '("\\.cljs$" . clojure-mode))
 
 ;; SVG
 (add-to-list 'auto-mode-alist '("\\.svg$" . image-mode))
